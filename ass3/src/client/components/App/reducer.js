@@ -7,7 +7,7 @@ const AppReducer = (state = initialState.app, action) => {
     console.log('RECEIVED ACTION:', action);
     switch (action.type){
         case AppActionsConstants.UPDATE_TAG:
-            return state.set('tag', action.payload.tag);
+            return state.set('restaurant', action.payload.restaurant);
         case AppActionsConstants.LOAD_TAGS_SUCCESS:
             let res = action.payload.tags.map(elm => {
                 return {label: elm, value: elm }

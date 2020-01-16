@@ -20,9 +20,28 @@ function* loadTags(action){
     }
 }
 
+function* getRestaurants(action){
+    console.log('AppSaga=', action);
+    try {
+        const res = yield call(fetch, 'http://localhost:8000/api/load/restaurant',
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+        const json = yield call([res, 'json']); //retrieve body of response
+        yield put(AppActions.loadRestaurantsSuccessAction(json));
+    } catch (e) {
+        yield put(AppActions.loadRestaurantsFailureAction(e.message));
+    }
+}
+
 function* AppSaga() {
     //using takeEvery, you take the action away from reducer to saga
     yield takeEvery(AppActionsConstants.LOAD_TAGS, loadTags);
+    yield takeEvery(AppActionsConstants.SEARCH_RESTAURANT, getRestaurants);
 }
 
 export default AppSaga;

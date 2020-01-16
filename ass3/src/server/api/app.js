@@ -31,4 +31,18 @@ module.exports = (app) => {
             });
         next();
     });
+    app.get('/api/load/restaurant', function(req, res) {
+        console.log('app.get/api/load/restaurant');
+        AppModel
+            .findOne(
+                {
+                    "name": req.body.restaurant
+                }
+            )
+            .then(doc => {
+                res.json(doc.rating);
+                res.end();
+            });
+
+    });
 };

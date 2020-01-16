@@ -1,11 +1,11 @@
 import { AppActionsConstants} from './constants.js';
 
 
-function updateTagAction(tag) {
+function updateTagAction(restaurant) {
   return {
     type: AppActionsConstants.UPDATE_TAG,
     payload: {
-      tag
+      restaurant
     }
   }
 }
@@ -33,11 +33,39 @@ function loadTagsFailureAction(error){
     }
 }
 
+
+function searchRestaurantAction(keyword){
+    return {
+        type: AppActionsConstants.SEARCH_RESTAURANT,
+        uri: '/api/load/restaurants',
+        payload: keyword
+    }
+}
+
+function loadRestaurantsSuccessAction(restaurants){
+    return {
+        type: AppActionsConstants.SEARCH_RESTAURANT_SUCCESS,
+        payload: {
+            restaurants: restaurants
+        }
+    }
+}
+
+function loadRestaurantsFailureAction(error){
+    return {
+        type: AppActionsConstants.SEARCH_RESTAURANT_FAILURE,
+        error: error
+    }
+}
+
 let AppActions  = {
     updateTagAction,
     loadTagsAction,
     loadTagsSuccessAction,
-    loadTagsFailureAction
+    loadTagsFailureAction,
+    searchRestaurantAction,
+    loadRestaurantsSuccessAction,
+    loadRestaurantsFailureAction
 };
 
 export default AppActions
