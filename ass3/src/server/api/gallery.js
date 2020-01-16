@@ -13,41 +13,35 @@ async function getImages(tag) {
 
 module.exports = (app) => {
     app.post('/api/load/images', function (req, res) {
-        // console.log('in load images');
-        // GalleryModel
-        //     .findOne({tag: req.body.tag})
-        //     .then(doc => {
-        //         if (doc != null) {
-        //             console.log('tag found=', req.body.tag);
-        //             res.json(doc.photos);
-        //         } else {
-        //             console.log('new tag=', req.body.tag);
-        //             getImages(req.body.tag)
-        //                 .then(e => e.data)
-        //                 .then(e => {
-        //                     if (
-        //                         e &&
-        //                         e.photos &&
-        //                         e.photos.photo &&
-        //                         e.photos.photo.length > 0
-        //                     ) {
-        //                         let gallery = new GalleryModel({tag: req.body.tag, photos: e.photos.photo});
-        //                         gallery
-        //                             .save(gallery)
-        //                             .then(() => {
-        //                                 res.json(gallery);
-        //                                 res.end();
-        //                             })
-        //                     }
-        //                 });
-        //
-        //         }
-        //     })
         console.log('in load images');
-
-        const child_process = require('child_process');
-        child_process.execFile('C:\\Users\\weamh\\Desktop\\mainBat.bat', ['C:\\Users\\weamh\\Desktop\\bigTest.txt'],
-            {cwd: 'C:\\Users\\weamh\\Desktop'}, (error, stdout, stderr) => {
-            });
+        GalleryModel
+            .findOne({tag: req.body.tag})
+            .then(doc => {
+                if (doc != null) {
+                    console.log('tag found=', req.body.tag);
+                    res.json(doc.photos);
+                } else {
+                    console.log('new tag=', req.body.tag);
+                    getImages(req.body.tag)
+                        .then(e => e.data)
+                        .then(e => {
+                            if (
+                                e &&
+                                e.photos &&
+                                e.photos.photo &&
+                                e.photos.photo.length > 0
+                            ) {
+                                let gallery = new GalleryModel({tag: req.body.tag, photos: e.photos.photo});
+                                gallery
+                                    .save(gallery)
+                                    .then(() => {
+                                        res.json(gallery);
+                                        res.end();
+                                    })
+                            }
+                        });
+        
+                }
+            })
     });
 };
