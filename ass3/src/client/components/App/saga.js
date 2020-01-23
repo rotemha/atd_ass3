@@ -23,7 +23,7 @@ function* loadTags(action){
 function* getRestaurants(action){
     console.log('AppSaga=', action);
     try {
-        const res = yield call(fetch, 'http://localhost:8000/api/load/restaurant',
+        const res = yield call(fetch, action.uri,
             {
                 method: 'GET',
                 headers: {

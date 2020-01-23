@@ -41,6 +41,6 @@ fs.readdirSync(__dirname + '/api').forEach((file) => {
   require(`./api/${file.substr(0, file.indexOf('.'))}`)(app);
 });
 
+app.listen(8000,
+    () => console.log(`Listening on port 8000!`));
 
-app.listen(config.port || 8000,
-    () => console.log(`Listening on port ${process.env.PORT || 8000}!`));

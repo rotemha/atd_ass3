@@ -31,8 +31,8 @@ module.exports = (app) => {
             });
         next();
     });
-    app.get('/api/load/restaurant', function(req, res) {
-        console.log('app.get/api/load/restaurant');
+    app.get('/api/load/restaurants', function(req, res) {
+        console.log('/api/load/restaurants');
         AppModel
             .findOne(
                 {
