@@ -1,41 +1,36 @@
 import React from 'react';
 import './App.scss';
-import Gallery from '../Gallery';
+import Search_Rests from '../Search_Rests';
+import Search_Users from '../Search_Users';
+import User_Login from '../User_Login';
+import Hot_Search from '../Hot_Search';
 import {connect} from 'react-redux';
 import AppActions from './actions';
 import GalleryActions from '../Gallery/actions';
-import {Button} from 'primereact/button';
-import {Dropdown} from 'primereact/dropdown';
-import {AutoComplete} from "primereact/autocomplete";
-import {InputText} from "primereact/inputtext";
-import {SplitButton} from "primereact/splitbutton";
+
 
 class App extends React.Component {
 
     render() {
-        console.log('tags=', this.props.tags);
         return (
             <div className="app-root">
-                <SplitButton label="Profile"/>
-                <h2>Zomato Clone</h2>
-                <div className="app-header">
-                    {/*<AutoComplete value={this.state.country} suggestions={this.props.restaurants} completeMethod={this.filterCountrySingle} field="name"*/}
-                    {/*              size={30} placeholder="Restaurant name" minLength={1} onChange={(e) => this.setState({country: e.value})} />*/}
-                    {/*<span style={{ marginLeft: '10px' }}>Country: {this.state.country ? this.state.country.name || this.state.country : 'none'}</span>*/}
-                    <div className="app-searches-restaurants">
-                        <InputText value={this.props.restaurant} onChange={this.props.updateTagEventHandler}/>
-                        <Button label="Search restaurants"
-                                onClick={() => this.props.searchRestaurantEventHandler(this.props.restaurant)}/>
-
-
-                    </div>
-                    <div className="app-searches-users">
-                        <InputText value={this.props.restaurant} onChange={this.props.updateTagEventHandler}/>
-                        <Button label="Search users"/>
+                <div>
+                    <h2>Zomato Clone</h2>
+                    <div>
+                        <div>
+                            <Search_Rests/>
+                        </div>
+                        <div>
+                            <Search_Users/>
+                        </div>
+                        <div>
+                            <User_Login/>
+                        </div>
+                </div>
+                    <div>
+                        <Hot_Search/>
                     </div>
                 </div>
-                {/*<Gallery/>*/}
-                <Button label="Add new review"/>
             </div>
         );
     }
@@ -43,8 +38,12 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        restaurant: state['app'].get('restaurant'),
-        restaurants: state['app'].get('restaurants').toArray()
+        render_login: state['app'].get('render_login'),
+        render_rests: state['app'].get('render_rests'),
+        render_hot_search: state['app'].get('render_hot_search'),
+        render_users: state['app'].get('render_users')
+        // restaurant: state['app'].get('restaurant'),
+        // restaurants: state['app'].get('restaurants').toArray()
     }
 };
 
@@ -54,7 +53,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(AppActions.loadTagsAction());
         },
         updateTagEventHandler: (e) => {
-            dispatch(AppActions.updateTagAction(e.value));
+            dispatch(AppActions.updateTagAction(e));
         },
         loadImagesEventHandler: (tag) => {
             dispatch(GalleryActions.loadImagesAction(tag))

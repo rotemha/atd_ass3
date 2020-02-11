@@ -9,10 +9,23 @@ export default {
         galleryWidth: 0
     }),
     app: Map({
-        size: 200,
-        user: 'Search user',
-        users: List(),
-        restaurant: 'Search restaurant',
-        restaurants: List()
-    })
+        render_rests: true,
+        render_users: true,
+        render_login: true,
+        render_hot_search: true
+    }),
+    rests: Map({
+        isBasic: true,
+        restaurant: "",
+        available_rests: List()
+    }),
+    users: Map({
+        is_username: true,
+        user: "",
+        available_users: List()
+    }),
+    login: Map({
+        render_login: true
+    }),
+    hot_search: List()
 };

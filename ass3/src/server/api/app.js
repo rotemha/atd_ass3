@@ -5,33 +5,34 @@ let _handleError = function(err){
 };
 
 module.exports = (app) => {
-    app.get('/api/load/tags', function(req, res) {
-        console.log('app.get/api/load/tags');
-        AppModel
-            .findOne()
-            .then(doc => {
-                res.json(doc.tags);
-                res.end();
-            });
+    // app.get('/api/load/tags', function(req, res) {
+    //     console.log('app.get/api/load/tags');
+    //     AppModel
+    //         .findOne()
+    //         .then(doc => {
+    //             res.json(doc.tags);
+    //             res.end();
+    //         });
 
-    });
-    app.post('/api/load/images', function(req, res, next) {
-        console.log('updating tag array');
-        AppModel
-            .findOne()
-            .then(doc => {
-                if (doc === null) {
-                    let newDoc = new AppModel();
-                    newDoc.tags.push(req.body.tag);
-                    newDoc.save(_handleError);
-                }else if (!doc.tags.includes(req.body.tag)) {
-                        doc.tags.push(req.body.tag);
-                        doc.save(_handleError);
-                    }
-            });
-        next();
-    });
+    // });
+    // app.post('/api/load/images', function(req, res, next) {
+    //     console.log('updating tag array');
+    //     AppModel
+    //         .findOne()
+    //         .then(doc => {
+    //             if (doc === null) {
+    //                 let newDoc = new AppModel();
+    //                 newDoc.tags.push(req.body.tag);
+    //                 newDoc.save(_handleError);
+    //             }else if (!doc.tags.includes(req.body.tag)) {
+    //                     doc.tags.push(req.body.tag);
+    //                     doc.save(_handleError);
+    //                 }
+    //         });
+    //     next();
+    // });
     app.get('/api/load/restaurants', function(req, res) {
+        console.log(req.body);
         console.log('/api/load/restaurants');
         AppModel
             .findOne(
@@ -42,6 +43,9 @@ module.exports = (app) => {
             .then(doc => {
                 res.json(doc.rating);
                 res.end();
+            })
+            .catch(e =>{
+                console.log(e);
             });
 
     });

@@ -3,7 +3,9 @@ let Schema = mongoose.Schema;
 
 let appSchema = new Schema({
     name: String,
-    rating: Number
+    rating: Number,
+    latitude: Number,
+    longtitude: Number
 });
 
 module.exports = mongoose.model('AppModel', appSchema);
