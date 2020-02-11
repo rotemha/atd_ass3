@@ -2,12 +2,11 @@
   "private": true,
   "version": "0.0.1",
   "description": "Flickr Gallery Template",
-  "main": "",
+  "main": "babel.config.js",
   "scripts": {
     "dev": "webpack-dev-server",
     "start": "webpack"
   },
-  "repository": "",
   "keywords": [],
   "author": "primereact",
   "devDependencies": {
@@ -105,5 +104,7 @@
       "clean-source"
     ],
     "noprompt": false
-  }
+  },
+  "name": "ass3",
+  "license": "ISC"
 }
