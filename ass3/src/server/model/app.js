@@ -8,4 +8,4 @@ let appSchema = new Schema({
     longtitude: Number
 });
 
-module.exports = mongoose.model('AppModel', appSchema);
+module.exports = mongoose.model('restaurants', appSchema);

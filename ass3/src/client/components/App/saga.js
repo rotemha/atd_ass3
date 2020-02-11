@@ -28,7 +28,7 @@ function* getRestaurants(action){
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
-                },
+                }
             });
 
         const json = yield call([res, 'json']); //retrieve body of response

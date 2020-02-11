@@ -31,21 +31,20 @@ module.exports = (app) => {
     //         });
     //     next();
     // });
-    app.get('/api/load/restaurants', function(req, res) {
-        console.log(req.body);
+    app.post('/api/load/restaurants', function(req, res) {
         console.log('/api/load/restaurants');
         AppModel
             .findOne(
                 {
-                    "name": req.body.restaurant
+                    name: req.body.name
                 }
             )
             .then(doc => {
-                res.json(doc.rating);
+                res.json(doc);
                 res.end();
             })
             .catch(e =>{
-                console.log(e);
+                _handleError(e);
             });
 
     });
