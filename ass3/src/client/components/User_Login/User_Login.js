@@ -10,12 +10,14 @@ class User_Login extends React.Component {
     render() {
         return (
             <div className="app-root">
+                <InputText value={this.props.username} onChange={(e) => this.props.updateUsernameEventHandler(e.target.value)}/>
+                <InputText value={this.props.password} onChange={(e) => this.props.updatePasswordEventHandler(e.target.value)}/>
                 {this.props.render_login && 
                     <div>
                         <Button label="Login"
-                                onClick={() => this.props.loginEventHandler()}/>
+                                onClick={() => this.props.loginEventHandler(this.props.username, this.props.password)}/>
                         <Button label="Register"
-                                onClick={() => this.props.registerEventHandler()}/>
+                                onClick={() => this.props.registerEventHandler(this.props.username, this.props.password)}/>
                     </div>
                 }
                 {(!this.props.render_login) && 
@@ -23,7 +25,7 @@ class User_Login extends React.Component {
                         <Button label="Profile"
                                 onClick={() => this.props.profileEventHandler()}/>
                         <Button label="Logout"
-                                onClick={() => this.props.logoutEventHandler()}/>
+                                onClick={() => this.props.logoutEventHandler(this.props.username, this.props.password)}/>
                     </div>
                 }
             </div>
@@ -33,6 +35,8 @@ class User_Login extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        username: state['login'].get('username'),
+        password: state['login'].get('password'),
         render_login: state['login'].get('render_login')
         // restaurant: state['rests'].get('restaurant'),
         // available_rests: state['rests'].get('available_rests')
@@ -41,14 +45,20 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginEventHandler: () => {
-            dispatch(User_LoginActions.loginAction());
+        updateUsernameEventHandler: (e) => {
+            dispatch(User_LoginActions.updateUsernameAction(e));
         },
-        registerEventHandler: () => {
-            dispatch(User_LoginActions.registerAction());
+        updatePasswordEventHandler: (e) => {
+            dispatch(User_LoginActions.updatePasswordAction(e));
+        },        
+        loginEventHandler: (username, password) => {
+            dispatch(User_LoginActions.loginAction(username, password));
         },
-        logoutEventHandler: () => {
-            dispatch(User_LoginActions.logoutAction());
+        registerEventHandler: (username, password) => {
+            dispatch(User_LoginActions.registerAction(username, password));
+        },
+        logoutEventHandler: (username, password) => {
+            dispatch(User_LoginActions.logoutAction(username, password));
         },
         profileEventHandler: () => {
             dispatch(User_LoginActions.profileAction());

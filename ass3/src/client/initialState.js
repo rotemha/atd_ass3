@@ -25,7 +25,10 @@ export default {
         available_users: List()
     }),
     login: Map({
-        render_login: true
+        render_login: true,
+        username: "",
+        password: "",
+        logged_in: false
     }),
     hot_search: List()
 };

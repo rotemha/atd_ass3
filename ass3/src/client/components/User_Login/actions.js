@@ -1,71 +1,142 @@
 import { User_LoginActionsConstants} from './constants.js';
 
 
-// function updateTagAction(restaurant) {
-//   return {
-//     type: AppActionsConstants.UPDATE_TAG,
-//     payload: {
-//       restaurant
-//     }
-//   }
-// }
+function loginAction(username, password) {
+    return {
+        type: User_LoginActionsConstants.LOGIN,
+        uri: '/api/user_login/login',
+        payload: {
+            username: username,
+            password: password
+        }
+    }
+}
 
-// function loadTagsAction(){
-//     return {
-//         type: AppActionsConstants.LOAD_TAGS,
-//         uri: '/api/load/tags'
-//     }
-// }
+function registerAction(username, password){
+    return {
+        type: User_LoginActionsConstants.REGISTER,
+        uri: '/api/user_login/register',
+        payload: {
+            username: username,
+            password: password
+        }
+    }
+}
 
-// function loadTagsSuccessAction(tags){
-//     return {
-//         type: AppActionsConstants.LOAD_TAGS_SUCCESS,
-//         payload: {
-//             tags: tags
-//         }
-//     }
-// }
+function logoutAction(username, password){
+    return {
+        type: User_LoginActionsConstants.LOGOUT,
+        uri: '/api/user_login/logout',
+        payload: {
+            username: username,
+            password: password
+        }
+    }
+}
 
-// function loadTagsFailureAction(error){
-//     return {
-//         type: AppActionsConstants.LOAD_TAGS_FAILURE,
-//         error: error
-//     }
-// }
+function profileAction(){
+    return {
+        type: User_LoginActionsConstants.PROFILE
+    }
+}
 
+function updateUsernameAction(username){
+    return {
+        type: User_LoginActionsConstants.UPDATE_USERNAME,
+        payload: {
+          username
+        }
+    }
+  }
 
-// function searchRestaurantAction(keyword){
-//     return {
-//         type: AppActionsConstants.SEARCH_RESTAURANT,
-//         uri: '/api/load/restaurants',
-//         payload: keyword
-//     }
-// }
+  function updatePasswordAction(password){
+    return {
+        type: User_LoginActionsConstants.UPDATE_PASSWORD,
+        payload: {
+          password
+        }
+    }
+  }
 
-// function loadRestaurantsSuccessAction(restaurants){
-//     return {
-//         type: AppActionsConstants.SEARCH_RESTAURANT_SUCCESS,
-//         payload: {
-//             restaurants: restaurants
-//         }
-//     }
-// }
+  function successfulLoginAction(username, password) {
+    return {
+        type: User_LoginActionsConstants.SUCCESS_LOGIN,
+        // uri: '/api/user_login/login',
+        payload: {
+            username: username,
+            password: password
+        }
+    }
+}
 
-// function loadRestaurantsFailureAction(error){
-//     return {
-//         type: AppActionsConstants.SEARCH_RESTAURANT_FAILURE,
-//         error: error
-//     }
-// }
+function successfulRegisterAction(username, password){
+    return {
+        type: User_LoginActionsConstants.SUCCESS_REGISTER,
+        // uri: '/api/user_login/register',
+        payload: {
+            username: username,
+            password: password
+        }
+    }
+}
+
+function successfulLogoutAction(username, password){
+    return {
+        type: User_LoginActionsConstants.SUCCESS_LOGOUT,
+        // uri: '/api/user_login/logout',
+        payload: {
+            username: username,
+            password: password
+        }
+    }
+}
+
+function failedLoginAction(username, password) {
+    return {
+        type: User_LoginActionsConstants.FAIL_LOGIN,
+        // uri: '/api/user_login/login',
+        payload: {
+            username: username,
+            password: password
+        }
+    }
+}
+
+function failedRegisterAction(username, password){
+    return {
+        type: User_LoginActionsConstants.FAIL_REGISTER,
+        // uri: '/api/user_login/register',
+        payload: {
+            username: username,
+            password: password
+        }
+    }
+}
+
+function failedLogoutAction(username, password){
+    return {
+        type: User_LoginActionsConstants.FAIL_LOGOUT,
+        // uri: '/api/user_login/logout',
+        payload: {
+            username: username,
+            password: password
+        }
+    }
+}
 
 let User_LoginActions  = {
-    // updateTagAction,
-    // loadTagsAction,
-    // loadTagsSuccessAction,
-    // loadTagsFailureAction,
-    // searchRestaurantAction,
-    // loadRestaurantsSuccessAction,
-    // loadRestaurantsFailureAction
+    loginAction,
+    registerAction,
+    logoutAction,
+    profileAction,
+    updateUsernameAction,
+    updatePasswordAction,
+    successfulLoginAction,
+    successfulRegisterAction,
+    successfulLogoutAction,
+    failedLoginAction,
+    failedRegisterAction,
+    failedLogoutAction
 };
 
 export default User_LoginActions
