@@ -10,6 +10,9 @@ const Search_Rests_Reducer = (state = initialState.rests, action) => {
             return state.set('isBasic', action.payload.search_type);
         case Search_RestsActionsConstants.UPDATE_TAG_RESTATURANT:
             return state.set('restaurant', action.payload.restaurant_name);
+        case Search_RestsActionsConstants.SEARCH_RESTAURANT_SUCCESS:
+            console.log('jjj');
+            return state.set('available_rests', action.payload.restaurants);
             
         default: //otherwise state is lost!
             return state;

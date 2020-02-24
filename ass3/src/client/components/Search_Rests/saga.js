@@ -33,8 +33,8 @@ function* getRestaurants(action){
             });
 
         const json = yield call([res, 'json']); //retrieve body of response
-        console.log(json.Stringify());
-        // yield put(Search_RestsActions.loadRestaurantsSuccessAction(json));
+        console.log(JSON.stringify(json, null, 2));
+        yield put(Search_RestsActions.loadRestaurantsSuccessAction(JSON.parse(json)));
     } catch (e) {
         // yield put(Search_RestsActions.loadRestaurantsFailureAction(e.message));
     }

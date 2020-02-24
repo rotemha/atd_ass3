@@ -1,4 +1,5 @@
 import { Search_RestsActionsConstants} from './constants.js';
+import {AppActionsConstants} from "../App/constants";
 
 
 function updateSearchTypeAction(search_type) {
@@ -26,6 +27,15 @@ function searchRestaurantAction(keyword){
         payload: keyword
     }
 }
+
+function loadRestaurantsSuccessAction(restaurants){
+    return {
+        type: Search_RestsActionsConstants.SEARCH_RESTAURANT_SUCCESS,
+        payload: {
+            restaurants: restaurants
+        }
+    }
+}
 // function loadTagsSuccessAction(tags){
 //     return {
 //         type: AppActionsConstants.LOAD_TAGS_SUCCESS,
@@ -44,14 +54,6 @@ function searchRestaurantAction(keyword){
 
 
 
-// function loadRestaurantsSuccessAction(restaurants){
-//     return {
-//         type: AppActionsConstants.SEARCH_RESTAURANT_SUCCESS,
-//         payload: {
-//             restaurants: restaurants
-//         }
-//     }
-// }
 
 // function loadRestaurantsFailureAction(error){
 //     return {
@@ -63,7 +65,8 @@ function searchRestaurantAction(keyword){
 let Search_RestsActions  = {
     updateSearchTypeAction,
     updateTagAction,
-    searchRestaurantAction
+    searchRestaurantAction,
+    loadRestaurantsSuccessAction
 
     // loadTagsAction,
     // loadTagsSuccessAction,

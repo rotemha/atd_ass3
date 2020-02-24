@@ -33,11 +33,14 @@ module.exports = (app) => {
     // });
     app.post('/api/load/restaurants', function(req, res) {
         console.log('/api/load/restaurants');
+        console.log(req.body.name);
         AppModel
-            .findOne(
+            .find(
                 {
-                    name: req.body.name
-                }
+                    // 'name': new RegExp('^' + req.body.name + '.*', 'i')
+        'name': new RegExp('(\\w*)(\\s*)' + req.body.name + '(\\s*)(\\w*)', 'i')
+
+    }
             )
             .then(doc => {
                 res.json(doc);

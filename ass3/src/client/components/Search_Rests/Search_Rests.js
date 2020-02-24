@@ -14,17 +14,25 @@ class Search_Rests extends React.Component {
         return (
             <div className="app-root">
                 <div>
-                <btn type="primary">Primary</btn>
+                <btn type="primary">Primary Search</btn>
 
                     <RadioButton inputId="rb2" name="city" value={true} onChange={(e) => this.props.updateSearchTypeEventHandler(e)} checked={this.props.isBasic} />
                                 <label htmlFor="rb2" className="p-radiobutton-label">Basic Search</label>
                      <RadioButton inputId="rb2" name="city" value={false} onChange={(e) => this.props.updateSearchTypeEventHandler(e)} checked={!this.props.isBasic} />
                                 <label htmlFor="rb2" className="p-radiobutton-label">Advanced Search</label>
-                {this.props.isBasic
-                    && <InputText value={this.props.restaurant} onChange={(e) => this.props.updateTagEventHandler(e.target.value)}/>
-                    && <Button label="Search restaurants"
+                {/*{this.props.isBasic*/}
+                {/*    && */}
+                    <InputText value={this.props.restaurant} onChange={(e) => this.props.updateTagEventHandler(e.target.value)}/>
+                    {/*&& */}
+                    <Button label="Search restaurants"
                             onClick={() => this.props.searchRestaurantEventHandler(this.props.restaurant)}/>
-                }
+                    {
+                        !this.props.available_rests.isEmpty()&&
+                            <div>
+                                <h1>HHHHH</h1>
+                            </div>
+                    }
+                {/*}*/}
                 </div>
                 <div>
                     {(!this.props.isBasic) && 
