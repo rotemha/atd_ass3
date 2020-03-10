@@ -12,69 +12,29 @@ export default {
         isName: true,
         restaurant: "",
         location: "",
+        images: [],
         selectedRestaurant: {},
+        time: 3,
         available_rests: [{
             name:"BBB",
             location:"Beer Sheva",
-            total_average: 3,
-            average: [{
-                bathroom_quality: 3,
-                staff_kindness: 3,
-                cleanliness: 3,
-                drive_thru: 3,
-                delivery_speed: 3,
-                food_quality: 3}],
-            reviews: [{
-                username: "a",
-                bathroom_quality: 3,
-                staff_kindness: 3,
-                cleanliness: 3,
-                drive_thru: 3,
-                delivery_speed: 3,
-                food_quality: 3
-            }]
+            total_average: -1,
+            average: [],
+            reviews: []
         },
         {
             name: "Agadir",
             location: "Tel Aviv",
-            total_average: 4,
-            average: [{
-                bathroom_quality: 4,
-                staff_kindness: 4,
-                cleanliness: 4,
-                drive_thru: 4,
-                delivery_speed: 4,
-                food_quality: 4}],
-            reviews: [{
-                username: "a",
-                bathroom_quality: 4,
-                staff_kindness: 4,
-                cleanliness: 4,
-                drive_thru: 4,
-                delivery_speed: 4,
-                food_quality: 4
-            }]
+            total_average: -1,
+            average: [],
+            reviews: []
         },
         {
             name:"Fish & Bread",
             location:"Akko",
-            total_average: 2,
-            average: [{
-                bathroom_quality: 1,
-                staff_kindness: 3,
-                cleanliness: 3,
-                drive_thru: 0,
-                delivery_speed: 0,
-                food_quality: 5}],
-            reviews: [{
-                username: "a",
-                bathroom_quality: 1,
-                staff_kindness: 3,
-                cleanliness: 3,
-                drive_thru: 0,
-                delivery_speed: 0,
-                food_quality: 5
-            }]
+            total_average: -1,
+            average: [],
+            reviews: []
         }],
         filtered_rests: [],
         received_restaurant: {},
@@ -84,12 +44,12 @@ export default {
         arr_of_restaurant_names: [],
         render_add_review: false,
         default_review: [{
-            bathroom_quality: undefined,
-            staff_kindness: undefined,
-            cleanliness: undefined,
-            drive_thru: undefined,
-            delivery_speed: undefined,
-            food_quality: undefined
+            bathroom_quality: 0,
+            staff_kindness: 0,
+            cleanliness: 0,
+            drive_thru: 0,
+            delivery_speed: 0,
+            food_quality: 0
         }]
     }),
     users: Map({
@@ -110,6 +70,7 @@ export default {
         username: "",
         password: "",
         location: "",
+        img: "",
         new_username: "",
         new_password: "",
         new_location: "",

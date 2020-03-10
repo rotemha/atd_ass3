@@ -32,7 +32,9 @@ const User_LoginActionsConstants = {
     FOOD_QUALITY: 'FOOD_QUALITY',
     SELECT_RESTAURANT: 'SELECT_RESTAURANT',
     UPDATE_REVIEWS: 'UPDATE_REVIEWS',
-    DELETE_ROW: 'DELETE_ROW'
+    DELETE_ROW: 'DELETE_ROW',
+    EDIT_IMAGE: 'EDIT_IMAGE',
+    UPDATE_PROFILE: 'UPDATE_PROFILE'
 };
 
 export { User_LoginActionsConstants}

@@ -38,11 +38,14 @@ function updateLocationAction(restaurant_location){
   }
 }
 
-function searchRestaurantAction(keyword){
+function searchRestaurantAction(keyword, time_choice){
   return {
       type: Search_RestsActionsConstants.SEARCH_RESTAURANT,
       uri: '/api/app/search_restaurant',
-      payload: keyword
+      payload: {
+        keyword: keyword,
+        time_choice: time_choice
+      }
   }
 }
 
@@ -169,6 +172,32 @@ function food_qualityReviewAction(row, e){
   }
 }
 
+function uploadImagesAction(img, name, username){
+  return {
+      uri: '/api/app/upload_image',
+      type: Search_RestsActionsConstants.UPLOAD_IMAGES,
+      payload: {
+          img: img,
+          name: name,
+          username: username
+      }
+  }
+}
+
+function updateImagesAction(images){
+  return {
+      type: Search_RestsActionsConstants.UPDATE_IMAGES,
+      payload: images
+  }
+}
+
+function updateTimeAction(time) {
+  return {
+    type: Search_RestsActionsConstants.UPDATE_TIME,
+    payload: time
+  }
+}
+
 let Search_RestsActions  = {
     updateSearchTypeAction,
     updateTagAction,
@@ -188,7 +217,10 @@ let Search_RestsActions  = {
     cleanlinessReviewAction,
     drive_thruReviewAction,
     delivery_speedReviewAction,
-    food_qualityReviewAction
+    food_qualityReviewAction,
+    uploadImagesAction,
+    updateImagesAction,
+    updateTimeAction
 };
 
 export default Search_RestsActions

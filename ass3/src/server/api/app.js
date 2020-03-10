@@ -11,14 +11,42 @@ let _handleError = function(err){
 router.post('/search_restaurant', (req, res) => {
     console.log('checking users array (search_restaurant)');
     const name = req.body.name;
-    console.log(name);
+    const time_choice = req.body.time_choice;
+    console.log(time_choice)
     AppModel
         .findOne({name: name})
         .then(doc => {
-            console.log(doc)
             if (doc === null) {
                 res.json({"result": false});
             } else {
+                let current_date = Date.now();
+                let reviews_new = doc.reviews;
+                let x = reviews_new.filter((review) => {
+                    // console.log(current_date)
+                    // console.log(review.creation_date.getTime())
+                    let diff = current_date - review.creation_date.getTime();
+                    console.log(diff);
+                    switch (time_choice) {
+                        case 0:
+                            if (diff <= 604800000)
+                                return true;
+                            break;
+                        case 1:
+                            if (diff <= 2628000000)
+                                return true;
+                            break;
+                        case 2:
+                            if (diff <= 31540000000)
+                                return true;
+                            break;
+                        default:
+                            return true;
+                    }
+                    return false;
+                })
+                doc.reviews = x;
+                console.log(x);
+
                 res.json({"result": doc});
             }
         })
@@ -65,6 +93,7 @@ router.post('/add_review', (req, res) => {
                         {
                             "name": restaurant_name,
                             "location": location,
+                            "creation_date": Date.now(),
                             "bathroom_quality": rowData.bathroom_quality,
                             "staff_kindness": rowData.staff_kindness,
                             "cleanliness": rowData.cleanliness,
@@ -91,7 +120,7 @@ router.post('/add_review', (req, res) => {
                                     reviews_new.push(
                                     {
                                         "username": username,
-                                        "location": location,
+                                        "creation_date": Date.now(),
                                         "bathroom_quality": rowData.bathroom_quality,
                                         "staff_kindness": rowData.staff_kindness,
                                         "cleanliness": rowData.cleanliness,
@@ -142,6 +171,45 @@ router.post('/add_review', (req, res) => {
                     }
                 })
             }
+        })
+});
+
+router.post('/upload_image', (req, res) => {
+    console.log('checking users array (upload_image)');
+    const img = req.body.img;
+    const name = req.body.name;
+    const username = req.body.username;
+    console.log(username)
+    AppModel
+        .findOne({name: name})
+        .then(doc => {
+            if (doc === null) {
+                res.json({"result": false});
+            } else {
+                let images_new = doc.images;
+                images_new.push({
+                    img: img,
+                    username: username
+                });
+                console.log(images_new.length)
+
+                AppModel
+                    .findOneAndUpdate({name: name}, {images: images_new}, {useFindAndModify: false})
+                    .then(doc => {
+                        if (doc === null) {
+                            res.json({"result": false});
+                        } else {
+                            res.json({"result": images_new});
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                    })
+                // res.json({"result": doc});
+            }
+        })
+        .catch(e => {
+            console.log(e)
         })
 });
 

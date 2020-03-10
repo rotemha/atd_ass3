@@ -93,6 +93,11 @@ const Search_Rests_Reducer = (state = initialState.rests, action) => {
             let tmp6 = action.payload.row;
             tmp6.food_quality = action.payload.e;
             return state.set('default_review', [tmp6]);
+        case Search_RestsActionsConstants.UPDATE_IMAGES:
+            console.log("IMAGES: " + action.payload)
+            return state.set('images', action.payload);
+        case Search_RestsActionsConstants.UPDATE_TIME:
+            return state.set('time', action.payload);
         default: //otherwise state is lost!
             return state;
     }

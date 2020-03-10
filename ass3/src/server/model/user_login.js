@@ -5,6 +5,7 @@ let user_loginSchema = new Schema({
     username: String,
     password: String,
     location: String,
+    img: String,
     logged_in: Boolean,
     my_reviews: Array
 });

@@ -42,13 +42,18 @@ const User_Login_Reducer = (state = initialState.login, action) => {
             state = state.set('logged_in', true);
             return state.set('render_login', false);
         case User_LoginActionsConstants.PROFILE:
-            return state.set('render_profile', action.payload);
+            return state.set('render_profile', action.payload.render_profile);
         case User_LoginActionsConstants.GLOBAL_FILTER:
             return state.set('globalFilter', action.payload.e);
         case User_LoginActionsConstants.SELECT_RESTAURANT:
             return state.set('selectedRestaurant', action.payload.e);
         case User_LoginActionsConstants.UPDATE_REVIEWS:
             return state.set('my_reviews', action.payload.new_reviews);
+        case User_LoginActionsConstants.EDIT_IMAGE:
+            return state.set('img', action.payload);
+        case User_LoginActionsConstants.UPDATE_PROFILE:
+            state = state.set('img', action.payload.img);
+            return state.set('my_reviews', action.payload.reviews);
         default: //otherwise state is lost!
             return state;
     }

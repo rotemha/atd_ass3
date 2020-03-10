@@ -13,14 +13,15 @@ function loginAction(username, password, location) {
     }
 }
 
-function registerAction(username, password, location){
+function registerAction(username, password, location, img){
     return {
         type: User_LoginActionsConstants.REGISTER,
         uri: '/api/user_login/register',
         payload: {
             username: username,
             password: password,
-            location: location
+            location: location,
+            img: img
         }
     }
 }
@@ -37,10 +38,14 @@ function logoutAction(username, password, location){
     }
 }
 
-function profileAction(render_profile){
+function profileAction(render_profile, username){
     return {
+        uri: '/api/user_login/profile_data',
         type: User_LoginActionsConstants.PROFILE,
-        payload: render_profile
+        payload: {
+            render_profile: render_profile,
+            username: username
+        }
     }
 }
 
@@ -262,73 +267,73 @@ function locationAction(username, name, e){
     }
 }
 
-function bathroom_qualityAction(username, name, e){
+function bathroom_qualityAction(username, rowData, e){
     return {
         uri: '/api/user_login/change_bathroom_quality',
         type: User_LoginActionsConstants.BATHROOM_QUALITY,
         payload: {
             username: username,
-            name: name,
+            rowData: rowData,
             e: e
         }
     }
 }
 
-function staff_kindnessAction(username, name, e){
+function staff_kindnessAction(username, rowData, e){
     return {
         uri: '/api/user_login/change_staff_kindness',
         type: User_LoginActionsConstants.STAFF_KINDNESS,
         payload: {
             username: username,
-            name: name,
+            rowData: rowData,
             e: e
         }
     }
 }
 
-function cleanlinessAction(username, name, e){
+function cleanlinessAction(username, rowData, e){
     return {
         uri: '/api/user_login/change_cleanliness',
         type: User_LoginActionsConstants.CLEANLINESS,
         payload: {
             username: username,
-            name: name,
+            rowData: rowData,
             e: e
         }
     }
 }
 
-function drive_thruAction(username, name, e){
+function drive_thruAction(username, rowData, e){
     return {
         uri: '/api/user_login/change_drive_thru',
         type: User_LoginActionsConstants.DRIVE_THRU,
         payload: {
             username: username,
-            name: name,
+            rowData: rowData,
             e: e
         }
     }
 }
 
-function delivery_speedAction(username, name, e){
+function delivery_speedAction(username, rowData, e){
     return {
         uri: '/api/user_login/change_delivery_speed',
         type: User_LoginActionsConstants.DELIVERY_SPEED,
         payload: {
             username: username,
-            name: name,
+            rowData: rowData,
             e: e
         }
     }
 }
 
-function food_qualityAction(username, name, e){
+function food_qualityAction(username, rowData, e){
     return {
         uri: '/api/user_login/change_food_quality',
         type: User_LoginActionsConstants.FOOD_QUALITY,
         payload: {
             username: username,
-            name: name,
+            rowData: rowData,
             e: e
         }
     }
@@ -382,6 +387,23 @@ function updateReviewsAction(name, new_reviews){
     }
 }
 
+function editImageAction(img){
+    return {
+        type: User_LoginActionsConstants.EDIT_IMAGE,
+        payload: img
+    }
+}
+
+function updateMyProfileAction(img, reviews){
+    return {
+        type: User_LoginActionsConstants.UPDATE_PROFILE,
+        payload: {
+            img: img,
+            reviews: reviews
+        }
+    }
+}
+
 function deleteReviewAction(username, rowData){
     return {
         uri: '/api/user_login/delete_review',
@@ -429,7 +451,9 @@ let User_LoginActions  = {
     deleteReviewAction,
     updateTotalAverageAction,
     updateAverageAction,
-    updateReviewsAction
+    updateReviewsAction,
+    editImageAction,
+    updateMyProfileAction
 };
 
 export default User_LoginActions

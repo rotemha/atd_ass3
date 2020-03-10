@@ -21,6 +21,9 @@ const Search_RestsActionsConstants = {
     DRIVE_THRU_TMP: 'DRIVE_THRU_TMP',
     DELIVERY_SPEED_TMP: 'DELIVERY_SPEED_TMP',
     FOOD_QUALITY_TMP: 'FOOD_QUALITY_TMP',
+    UPLOAD_IMAGES: 'UPLOAD_IMAGES',
+    UPDATE_IMAGES: 'UPDATE_IMAGES',
+    UPDATE_TIME: 'UPDATE_TIME'
 };
 
 export { Search_RestsActionsConstants}

@@ -7,6 +7,9 @@ function* login_or_register_or_logout(action){
     const username = action.payload.username;
     const password = action.payload.password;
     const location = action.payload.location;
+    let img;
+    if (action.type === User_LoginActionsConstants.REGISTER)
+        img = action.payload.img;
     console.log('User_LoginSaga=', action);
     try {
         const res = yield call(fetch, action.uri,
@@ -15,11 +18,19 @@ function* login_or_register_or_logout(action){
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    "username": username,
-                    "password": password,
-                    "location": location
-                })
+                body: JSON.stringify(action.type === User_LoginActionsConstants.REGISTER ?
+                    {
+                        "username": username,
+                        "password": password,
+                        "location": location,
+                        "img": img
+                    }
+                    :
+                    {
+                        "username": username,
+                        "password": password,
+                        "location": location
+                    })
             });
 
         const json = yield call([res, 'json']); //retrieve body of response
@@ -123,7 +134,8 @@ function* changeProfile(action){
 
 function* changeReview(action){
     const username = action.payload.username;
-    const name = action.payload.name;
+    const rowData = action.payload.rowData;
+    const name = rowData.name;
     const new_data = action.payload.e;
         console.log('AppSaga=', action);
     try {
@@ -136,6 +148,7 @@ function* changeReview(action){
                 body: JSON.stringify({
                     "username": username,
                     "name": name,
+                    "rowData": rowData,
                     "new_data": new_data
                 })
             });
@@ -178,8 +191,32 @@ function* deleteReview(action){
     } catch (_e) {}
 }
 
+function* getProfile(action){
+    const username = action.payload.username;
+        console.log('AppSaga=', action);
+    try {
+        const res = yield call(fetch, action.uri,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "username": username
+                })
+            });
+
+        const json = yield call([res, 'json']); //retrieve body of response
+        if (json.result !== false){
+            yield put(User_LoginActions.updateMyProfileAction(json.img, json.reviews));
+        }
+    } catch (_e) {}
+}
+
 function* User_LoginSaga() {
     //using takeEvery, you take the action away from reducer to saga
+    yield takeEvery(User_LoginActionsConstants.PROFILE, getProfile);
+
     yield takeEvery(User_LoginActionsConstants.UPDATE_USERNAME, before_register);
     yield takeEvery(User_LoginActionsConstants.UPDATE_NEW_USERNAME, before_register);
     yield takeEvery(User_LoginActionsConstants.LOGIN, login_or_register_or_logout);

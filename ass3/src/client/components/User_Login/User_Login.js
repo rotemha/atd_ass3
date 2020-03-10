@@ -52,10 +52,22 @@ class User_Login extends React.Component {
                         <p>Location:</p>
                         <InputText value={this.props.location} onChange={(e) => this.props.updateLocationEventHandler(e.target.value)}/>
                         <p></p>
+                        <label>Image: </label>
+                        <input type="file" name="search" accept="image/*" onChange={(e) => {
+                            let fr = new FileReader();
+                            fr.onloadend = () => {
+                                let img = fr.result;
+                                this.props.editImageEventHandler(img);
+                            };
+                            fr.readAsDataURL(e.target.files[0]);
+                        }}/>
+                    
+                        <p></p>
                         <Button label="Login"
                                 onClick={() => this.props.loginEventHandler(this.props.username, this.props.password, this.props.location)}/>
                         <Button label="Register"
-                                onClick={() => this.props.registerEventHandler(this.props.username, this.props.password, this.props.location)}/>
+                                onClick={() => this.props.registerEventHandler(this.props.username, this.props.password, this.props.location, this.props.img)}/>
+                        
                     </div>
                 }
 
@@ -63,7 +75,7 @@ class User_Login extends React.Component {
                     <div>
                         <p>Username "{this.props.username}" is logged in.</p>
                         <Button label="Profile"
-                                onClick={(_e) => this.props.profileEventHandler(!this.props.render_profile)}/>
+                                onClick={(_e) => this.props.profileEventHandler(!this.props.render_profile, this.props.username)}/>
                         <Button label="Logout"
                                 onClick={() => this.props.logoutEventHandler(this.props.username, this.props.password, this.props.location)}/>
                     </div>
@@ -71,6 +83,9 @@ class User_Login extends React.Component {
 
                 {this.props.render_profile &&
                     <div>
+                        <p>Username: {this.props.username}</p>
+                        <p>Location: {this.props.location}</p>
+                        <img alt="Card" src={this.props.img}/>
                         <p>New Username:</p>
                         <InputText value={this.props.new_username} onChange={(e) => this.props.updateNewUsernameEventHandler(e.target.value)}/>
                         
@@ -98,12 +113,12 @@ class User_Login extends React.Component {
                                         editable={true}>
                                     <Column field="name" header="Name" filter sortable style={{width: '100%'}}/>
                                     <Column field="location" header="Location" filter sortable style={{width: '100%'}}/>
-                                    <Column field="bathroom_quality" header="Bathroom Quality" filter sortable editor={props => <Dropdown value={props.rowData["bathroom_quality"]} onChange={(e) => this.props.bathroom_qualityEditorEventHandler(this.props.username, props.rowData["name"], e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
-                                    <Column field="staff_kindness" header="Staff Kindness" filter sortable editor={props => <Dropdown value={props.rowData["staff_kindness"]} onChange={(e) => this.props.staff_kindnessEditorEventHandler(this.props.username, props.rowData["name"], e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
-                                    <Column field="cleanliness" header="Cleanliness" filter sortable editor={props => <Dropdown value={props.rowData["cleanliness"]} onChange={(e) => this.props.cleanlinessEditorEventHandler(this.props.username, props.rowData["name"], e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
-                                    <Column field="drive_thru" header="Drive-Thru" filter sortable editor={props => <Dropdown value={props.rowData["drive_thru"]} onChange={(e) => this.props.drive_thruEditorEventHandler(this.props.username, props.rowData["name"], e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
-                                    <Column field="delivery_speed" header="Delivery Speed" filter sortable editor={props => <Dropdown value={props.rowData["delivery_speed"]} onChange={(e) => this.props.delivery_speedEditorEventHandler(this.props.username, props.rowData["name"], e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
-                                    <Column field="food_quality" header="Food Quality" filter sortable editor={props => <Dropdown value={props.rowData["food_quality"]} onChange={(e) => this.props.food_qualityEditorEventHandler(this.props.username, props.rowData["name"], e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
+                                    <Column field="bathroom_quality" header="Bathroom Quality" filter sortable editor={props => <Dropdown value={props.rowData["bathroom_quality"]} onChange={(e) => this.props.bathroom_qualityEditorEventHandler(this.props.username, props.rowData, e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
+                                    <Column field="staff_kindness" header="Staff Kindness" filter sortable editor={props => <Dropdown value={props.rowData["staff_kindness"]} onChange={(e) => this.props.staff_kindnessEditorEventHandler(this.props.username, props.rowData, e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
+                                    <Column field="cleanliness" header="Cleanliness" filter sortable editor={props => <Dropdown value={props.rowData["cleanliness"]} onChange={(e) => this.props.cleanlinessEditorEventHandler(this.props.username, props.rowData, e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
+                                    <Column field="drive_thru" header="Drive-Thru" filter sortable editor={props => <Dropdown value={props.rowData["drive_thru"]} onChange={(e) => this.props.drive_thruEditorEventHandler(this.props.username, props.rowData, e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
+                                    <Column field="delivery_speed" header="Delivery Speed" filter sortable editor={props => <Dropdown value={props.rowData["delivery_speed"]} onChange={(e) => this.props.delivery_speedEditorEventHandler(this.props.username, props.rowData, e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
+                                    <Column field="food_quality" header="Food Quality" filter sortable editor={props => <Dropdown value={props.rowData["food_quality"]} onChange={(e) => this.props.food_qualityEditorEventHandler(this.props.username, props.rowData, e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
                                     {/* <Column field="delete_review" header="Delete Review" filter sortable editor={props => <Button></Button>} style={{width: '100%'}}/> */}
                                     <Column field="delete_review" header="Delete Review" body={(rowData, column) => <Button type="button" icon="pi pi-times" onClick={_e => this.props.deleteReviewEventHandler(this.props.username, rowData)}></Button>} style={{textAlign:'center', width: '8em'}}/>
                                 </DataTable>
@@ -122,6 +137,7 @@ const mapStateToProps = (state) => {
         username: state['login'].get('username'),
         password: state['login'].get('password'),
         location: state['login'].get('location'),
+        img: state['login'].get('img'),
         new_username: state['login'].get('new_username'),
         new_password: state['login'].get('new_password'),
         new_location: state['login'].get('new_location'),
@@ -168,14 +184,14 @@ const mapDispatchToProps = (dispatch) => {
         loginEventHandler: (username, password, location) => {
             dispatch(User_LoginActions.loginAction(username, password, location));
         },
-        registerEventHandler: (username, password, location) => {
-            dispatch(User_LoginActions.registerAction(username, password, location));
+        registerEventHandler: (username, password, location, img) => {
+            dispatch(User_LoginActions.registerAction(username, password, location, img));
         },
         logoutEventHandler: (username, password, location) => {
             dispatch(User_LoginActions.logoutAction(username, password, location));
         },
-        profileEventHandler: (e) => {
-            dispatch(User_LoginActions.profileAction(e));
+        profileEventHandler: (e, username) => {
+            dispatch(User_LoginActions.profileAction(e, username));
         },
         globalFilterEventHandler: (e) => {
             dispatch(User_LoginActions.globalFilterAction(e));
@@ -186,29 +202,32 @@ const mapDispatchToProps = (dispatch) => {
         locationEditorEventHandler: (username, name, e) => {
             dispatch(User_LoginActions.locationAction(username, name, e));
         },
-        bathroom_qualityEditorEventHandler: (username, name, e) => {
-            dispatch(User_LoginActions.bathroom_qualityAction(username, name, e));
+        bathroom_qualityEditorEventHandler: (username, rowData, e) => {
+            dispatch(User_LoginActions.bathroom_qualityAction(username, rowData, e));
         },
-        staff_kindnessEditorEventHandler: (username, name, e) => {
-            dispatch(User_LoginActions.staff_kindnessAction(username, name, e));
+        staff_kindnessEditorEventHandler: (username, rowData, e) => {
+            dispatch(User_LoginActions.staff_kindnessAction(username, rowData, e));
         },
-        cleanlinessEditorEventHandler: (username, name, e) => {
-            dispatch(User_LoginActions.cleanlinessAction(username, name, e));
+        cleanlinessEditorEventHandler: (username, rowData, e) => {
+            dispatch(User_LoginActions.cleanlinessAction(username, rowData, e));
         },
-        drive_thruEditorEventHandler: (username, name, e) => {
-            dispatch(User_LoginActions.drive_thruAction(username, name, e));
+        drive_thruEditorEventHandler: (username, rowData, e) => {
+            dispatch(User_LoginActions.drive_thruAction(username, rowData, e));
         },
-        delivery_speedEditorEventHandler: (username, name, e) => {
-            dispatch(User_LoginActions.delivery_speedAction(username, name, e));
+        delivery_speedEditorEventHandler: (username, rowData, e) => {
+            dispatch(User_LoginActions.delivery_speedAction(username, rowData, e));
         },
-        food_qualityEditorEventHandler: (username, name, e) => {
-            dispatch(User_LoginActions.food_qualityAction(username, name, e));
+        food_qualityEditorEventHandler: (username, rowData, e) => {
+            dispatch(User_LoginActions.food_qualityAction(username, rowData, e));
         },
         selectRestaurantEventHandler: (e) => {
             dispatch(User_LoginActions.selectRestaurantAction(e));
         },
         deleteReviewEventHandler: (username, rowData) => {
             dispatch(User_LoginActions.deleteReviewAction(username, rowData));
+        },
+        editImageEventHandler: (img) => {
+            dispatch(User_LoginActions.editImageAction(img));
         }
         
     }

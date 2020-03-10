@@ -42,6 +42,8 @@ class Search_Rests extends React.Component {
             {label: '5', value: 5}
         ]
 
+        var lst = document.createElement('ul')
+
         return (
             <div className="app-root">
                     <RadioButton inputId="rb2" name="city" value={true} onChange={(e) => this.props.updateSearchTypeEventHandler(e)} checked={this.props.isBasic} />
@@ -49,16 +51,28 @@ class Search_Rests extends React.Component {
                      <p></p>
                      <RadioButton inputId="rb2" name="city" value={false} onChange={(e) => this.props.updateSearchTypeEventHandler(e)} checked={!this.props.isBasic} />
                                 <label htmlFor="rb2" className="p-radiobutton-label">Advanced Restaurant Search</label>
+                    <p></p>
+                    <RadioButton inputId="rb3" name="city" value={0} onChange={(e) => this.props.updateTimeEventHandler(e)} checked={this.props.time === 0} />
+                                <label htmlFor="rb3" className="p-radiobutton-label">Since last week</label>
+                    <p></p>
+                    <RadioButton inputId="rb3" name="city" value={1} onChange={(e) => this.props.updateTimeEventHandler(e)} checked={this.props.time === 1} />
+                                <label htmlFor="rb3" className="p-radiobutton-label">Since last month</label>
+                                <p></p>
+                    <RadioButton inputId="rb3" name="city" value={2} onChange={(e) => this.props.updateTimeEventHandler(e)} checked={this.props.time === 2} />
+                                <label htmlFor="rb3" className="p-radiobutton-label">Since last year</label>
+                    <p></p>
+                    <RadioButton inputId="rb3" name="city" value={3} onChange={(e) => this.props.updateTimeEventHandler(e)} checked={this.props.time === 3} />
+                                <label htmlFor="rb3" className="p-radiobutton-label">All results</label>
                 <p></p>
                 {this.props.isBasic &&
                     <div>
                         {/* <InputText value={this.props.restaurant} onChange={(e) => this.props.updateTagEventHandler(e.target.value)}/> */}
                         <AutoComplete value={this.props.restaurant} suggestions={this.props.filtered_rests}
-                            size={30} placeholder="Restaurant Name" minLength={1} onChange={(e) => this.props.updateTagEventHandler(e.value)}
+                            size={30} placeholder="Restaurant Name" minLength={0} onChange={(e) => this.props.updateTagEventHandler(e.value)}
                             completeMethod={(event) => {
                                 setTimeout(() => {
                                     var results = this.props.available_rests.filter((restaurant) => {
-                                        return restaurant.name.toLowerCase().startsWith(event.query.toLowerCase());
+                                        return restaurant.name.toLowerCase().includes(event.query.toLowerCase());
                                     });
                                     let res = results.map((restaurant) => restaurant.name);
                                     this.props.filterRestaurantsEventHandler(res);
@@ -66,7 +80,7 @@ class Search_Rests extends React.Component {
                             }}
                             />
                         <Button label="Basic Restaurant Search"
-                            onClick={() => this.props.searchRestaurantEventHandler(this.props.restaurant)}/>
+                            onClick={() => this.props.searchRestaurantEventHandler(this.props.restaurant, this.props.time)}/>
                     </div>}
                 <p></p>
                 {(!this.props.isBasic) &&
@@ -80,11 +94,11 @@ class Search_Rests extends React.Component {
                         {this.props.isName && 
                             <div>
                                 <AutoComplete value={this.props.restaurant} suggestions={this.props.filtered_rests}
-                                size={30} placeholder="Restaurant Name" minLength={1} onChange={(e) => this.props.updateTagEventHandler(e.value)}
+                                size={30} placeholder="Restaurant Name" minLength={0} onChange={(e) => this.props.updateTagEventHandler(e.value)}
                                 completeMethod={(event) => {
                                     setTimeout(() => {
                                         var results = this.props.available_rests.filter((restaurant) => {
-                                            return restaurant.name.toLowerCase().startsWith(event.query.toLowerCase());
+                                            return restaurant.name.toLowerCase().includes(event.query.toLowerCase());
                                         });
                                         let res = results.map((restaurant) => restaurant.name);
                                         this.props.filterRestaurantsEventHandler(res);
@@ -92,17 +106,17 @@ class Search_Rests extends React.Component {
                                 }}
                                 />
                                 <Button label="Advanced Restaurant Search"
-                                    onClick={() => this.props.searchRestaurantEventHandler(this.props.restaurant)}/>
+                                    onClick={() => this.props.searchRestaurantEventHandler(this.props.restaurant, this.props.time)}/>
                             </div>
                         }
                         {!this.props.isName && 
                             <div>
                                 <AutoComplete value={this.props.location} suggestions={this.props.filtered_rests}
-                                    size={30} placeholder="Restaurant Location" minLength={1} onChange={(e) => this.props.updateLocationEventHandler(e.value)}
+                                    size={30} placeholder="Restaurant Location" minLength={0} onChange={(e) => this.props.updateLocationEventHandler(e.value)}
                                     completeMethod={(event) => {
                                         setTimeout(() => {
                                             var results = this.props.available_rests.filter((restaurant) => {
-                                                return restaurant.location.toLowerCase().startsWith(event.query.toLowerCase());
+                                                return restaurant.location.toLowerCase().includes(event.query.toLowerCase());
                                             });
                                             let res = results.map((restaurant) => restaurant.location);
                                         this.props.filterRestaurantsEventHandler(res);
@@ -125,9 +139,26 @@ class Search_Rests extends React.Component {
                 {this.props.render_results &&
                     <div>
                         {!this.props.no_results &&
-                            <div>
+                            <div id="abc">
                                 <p>Restaurant name: {this.props.received_restaurant.name}</p>
                                 <p>Location: {this.props.received_restaurant.location}</p>
+                                {/* {this.props.images.forEach(img => {
+                                    // var li = document.createElement('li');
+                                    // li.innerHTML = "<img alt=\"Card\" src={img}/>";
+                                    // lst.appendChild(li);
+                                    // var app = document.querySelector('#abc');
+                                    // app.appendChild(lst);
+                                })} */}
+                                <img alt="" src={this.props.images[0] !== undefined ? this.props.images[0].img : ""}/>
+                                <img alt="" src={this.props.images[1] !== undefined ? this.props.images[1].img : ""}/>
+                                <img alt="" src={this.props.images[2] !== undefined ? this.props.images[2].img : ""}/>
+                                <img alt="" src={this.props.images[3] !== undefined ? this.props.images[3].img : ""}/>
+                                <img alt="" src={this.props.images[4] !== undefined ? this.props.images[4].img : ""}/>
+                                <img alt="" src={this.props.images[5] !== undefined ? this.props.images[5].img : ""}/>
+                                <img alt="" src={this.props.images[6] !== undefined ? this.props.images[6].img : ""}/>
+                                <img alt="" src={this.props.images[7] !== undefined ? this.props.images[7].img : ""}/>
+                                <img alt="" src={this.props.images[8] !== undefined ? this.props.images[8].img : ""}/>
+                                <img alt="" src={this.props.images[9] !== undefined ? this.props.images[9].img : ""}/>
                                 <DataTable ref={(el2) => this.dt2 = el2} value={this.props.received_restaurant.average} header={header_average} emptyMessage="No records found" className="p-datatable-cars">
                                     <Column field="bathroom_quality" header="Bathroom Quality" style={{width: '100%'}}/>
                                     <Column field="staff_kindness" header="Staff Kindness" style={{width: '100%'}}/>
@@ -144,6 +175,7 @@ class Search_Rests extends React.Component {
                                     <Column field="drive_thru" header="Drive-Thru" filter sortable style={{width: '100%'}}/>
                                     <Column field="delivery_speed" header="Delivery Speed" filter sortable style={{width: '100%'}}/>
                                     <Column field="food_quality" header="Food Quality" filter sortable style={{width: '100%'}}/>
+                                    <Column field="creation_date" header="Creation Date" filter sortable style={{width: '100%'}}/>
                                 </DataTable>
                                 {!this.props.render_login &&
                                     <div>
@@ -157,6 +189,36 @@ class Search_Rests extends React.Component {
                                                     <Column field="drive_thru" header="Drive-Thru" editor={props => <Dropdown value={props.rowData["drive_thru"]} onChange={(e) => this.props.drive_thruEditorEventHandler(props.rowData, e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
                                                     <Column field="delivery_speed" header="Delivery Speed" editor={props => <Dropdown value={props.rowData["delivery_speed"]} onChange={(e) => this.props.delivery_speedEditorEventHandler(props.rowData, e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
                                                     <Column field="food_quality" header="Food Quality" editor={props => <Dropdown value={props.rowData["food_quality"]} onChange={(e) => this.props.food_qualityEditorEventHandler(props.rowData, e.target.value)} options={ratings}/>} style={{width: '100%'}}/>
+                                                    <Column field="img" header="Upload Image" body={(rowData, colum) =>
+                                        <input type="file" name="search" multiple={true} accept="image/*" onChange={(e) => {
+                                            // let fr = new FileReader();
+                                            // fr.onloadend = () => {
+                                            //     let img = fr.result;
+                                            //     this.props.editImageEventHandler(img);
+                                            // };
+                                            // fr.readAsDataURL(e.target.files[0]);
+                
+                                            let x = this.props;
+                                            function readmultifiles(files) {
+                                                var reader = new FileReader();
+                                                function readFile(index) {
+                                                  if( index >= files.length ) return;
+                                                  var file = files[index];
+                                                  reader.onload = function(e) {  
+                                                    // get file content  
+                                                    var img = e.target.result;
+                                                    x.uploadImagesEventHandler(img, x.restaurant, x.username);
+                                                    // do sth with bin
+                                                    readFile(index+1)
+                                                  }
+                                                  reader.readAsDataURL(file);
+                                                }
+                                                readFile(0);
+                                              }
+                
+                                              readmultifiles(e.target.files);
+                                        }}/>}
+                                        style={{width: '100%'}} />
                                                     <Column field="add_review" header="Add Review" body={(rowData, _column) => <Button type="button" icon="pi pi-plus" onClick={_e => this.props.addReviewEventHandler(this.props.username, this.props.received_restaurant.name, this.props.received_restaurant.location, rowData)}></Button>} style={{textAlign:'center', width: '8em'}}/>
                                                 </DataTable>
                                             </div>
@@ -191,6 +253,8 @@ const mapStateToProps = (state) => {
         isName: state['rests'].get('isName'),
         restaurant: state['rests'].get('restaurant'),
         location: state['rests'].get('location'),
+        images: state['rests'].get('images'),
+        time: state['rests'].get('time'),
         no_results: state['rests'].get('no_results'),
         render_results: state['rests'].get('render_results'),
         available_rests: state['rests'].get('available_rests'),
@@ -217,8 +281,8 @@ const mapDispatchToProps = (dispatch) => {
         updateLocationEventHandler: (e) => {
             dispatch(Search_RestsActions.updateLocationAction(e));
         },
-        searchRestaurantEventHandler: (restaurant) => {
-            dispatch(Search_RestsActions.searchRestaurantAction(restaurant));
+        searchRestaurantEventHandler: (restaurant, time_choice) => {
+            dispatch(Search_RestsActions.searchRestaurantAction(restaurant, time_choice));
         },
         searchRestaurantLocationEventHandler: (location) => {
             dispatch(Search_RestsActions.searchRestaurantLocationAction(location));
@@ -230,7 +294,6 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(Search_RestsActions.globalFilterSearchRestsAction(e));
         },
         addReviewEventHandler: (username, restaurant_name, location, rowData) => {
-            console.log(username)
             dispatch(Search_RestsActions.addReviewAction(username, restaurant_name, location, rowData));
         },
         bathroom_qualityEditorEventHandler: (row, e) => {
@@ -251,6 +314,12 @@ const mapDispatchToProps = (dispatch) => {
         food_qualityEditorEventHandler: (row, e) => {
             dispatch(Search_RestsActions.food_qualityReviewAction(row, e));
         },
+        uploadImagesEventHandler: (img, name, username) => {
+            dispatch(Search_RestsActions.uploadImagesAction(img, name, username));
+        },
+        updateTimeEventHandler: (e) => {
+            dispatch(Search_RestsActions.updateTimeAction(e.value));
+        }
     }
 };
 

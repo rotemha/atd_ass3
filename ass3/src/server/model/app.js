@@ -14,12 +14,17 @@ let appSchema = new Schema({
         food_quality: Number}],
     reviews: [{
         username: String,
+        creation_date: Date,
         bathroom_quality: Number,
         staff_kindness: Number,
         cleanliness: Number,
         drive_thru: Number,
         delivery_speed: Number,
         food_quality: Number
+    }],
+    images: [{
+        img: String, 
+        username: String
     }]
 });
 
