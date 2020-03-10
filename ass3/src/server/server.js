@@ -12,17 +12,12 @@ const config = {
   port: 8000
 };
 
-//setup database
-mongoose.Promise = global.Promise;
-// MongoDB Connection
-if (process.env.NODE_ENV !== 'test') {
-  mongoose.connect(config.mongoURL, { useNewUrlParser: true }, (error) => {
-    if (error) {
-      console.error('Please make sure Mongodb is installed and running!');
-      throw error;
-    }else console.log('connected to database!');
-  });
-}
+mongoose
+    .connect(config.mongoURL, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true})
+    .then(() => console.log('connected to database!'))
+    .catch(err => console.log(err));
 
 
 
@@ -35,11 +30,9 @@ console.log(__dirname);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
-// Add backend api routes
-fs.readdirSync(__dirname + '/api').forEach((file) => {
-  require(`./api/${file.substr(0, file.indexOf('.'))}`)(app);
-});
+app.use('/api/app', require('./api/app'));
+app.use('/api/user_login', require('./api/user_login'));
+// app.use('/api/app', require('./api/app'));
 
 app.listen(8000,
     () => console.log(`Listening on port 8000!`));

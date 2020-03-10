@@ -20,23 +20,7 @@ import User_LoginActions from './actions'
 //     }
 // }
 
-function* getUsers(action){
-    console.log('User_LoginSaga=', action);
-    try {
-        const res = yield call(fetch, action.uri,
-            {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
 
-        const json = yield call([res, 'json']); //retrieve body of response
-        // yield put(User_LoginActions.loadRestaurantsSuccessAction(json));
-    } catch (e) {
-        // yield put(User_LoginActions.loadRestaurantsFailureAction(e.message));
-    }
-}
 
 function* User_LoginSaga() {
     //using takeEvery, you take the action away from reducer to saga

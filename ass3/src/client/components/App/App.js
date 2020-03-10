@@ -6,7 +6,6 @@ import User_Login from '../User_Login';
 import Hot_Search from '../Hot_Search';
 import {connect} from 'react-redux';
 import AppActions from './actions';
-import GalleryActions from '../Gallery/actions';
 
 
 class App extends React.Component {
@@ -14,22 +13,15 @@ class App extends React.Component {
     render() {
         return (
             <div className="app-root">
+                <h2>Zomato Clone</h2>
                 <div>
-                    <h2>Zomato Clone</h2>
-                    <div>
-                        <div>
-                            <Search_Rests/>
-                        </div>
-                        <div>
-                            <Search_Users/>
-                        </div>
-                        <div>
-                            <User_Login/>
-                        </div>
+                    <User_Login/>
                 </div>
-                    <div>
-                        <Hot_Search/>
-                    </div>
+                <div>
+                    <Search_Rests/>
+                </div>
+                <div>
+                    <Search_Users/>
                 </div>
             </div>
         );

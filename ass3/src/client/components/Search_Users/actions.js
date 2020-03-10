@@ -19,14 +19,44 @@ function updateTagAction(username){
   }
 }
 
-// function loadTagsSuccessAction(tags){
-//     return {
-//         type: AppActionsConstants.LOAD_TAGS_SUCCESS,
-//         payload: {
-//             tags: tags
-//         }
-//     }
-// }
+function search_UsersAction(username){
+  return {
+      uri: '/api/user_login/search_users',
+      type: Search_UsersActionsConstants.SEARCH_USERS,
+      payload: username
+  }
+}
+
+function search_UsersLocationAction(location){
+  return {
+      uri: '/api/user_login/search_users_location',
+      type: Search_UsersActionsConstants.SEARCH_USERS_LOCATION,
+      payload: location
+  }
+}
+
+function loadUserAction(result){
+    return {
+        type: Search_UsersActionsConstants.LOAD_USER,
+        payload: result
+    }
+}
+
+function loadUserLocationAction(result){
+  return {
+      type: Search_UsersActionsConstants.LOAD_USER_LOCATION,
+      payload: result
+  }
+}
+
+function globalFilterSearchAction(e){
+  return {
+      type: Search_UsersActionsConstants.GLOBAL_FILTER_SEARCH,
+      payload: {
+          e: e
+      }
+  }
+}
 
 // function loadTagsFailureAction(error){
 //     return {
@@ -62,7 +92,12 @@ function updateTagAction(username){
 
 let Search_UsersActions  = {
     updateSearchTypeAction,
-    updateTagAction
+    updateTagAction,
+    search_UsersAction,
+    search_UsersLocationAction,
+    loadUserAction,
+    loadUserLocationAction,
+    globalFilterSearchAction
     // loadTagsSuccessAction,
     // loadTagsFailureAction,
     // searchRestaurantAction,

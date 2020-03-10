@@ -38,10 +38,9 @@ function* getRestaurants(action){
     }
 }
 
+
 function* AppSaga() {
-    //using takeEvery, you take the action away from reducer to saga
-    yield takeEvery(AppActionsConstants.LOAD_TAGS, loadTags);
-    // yield takeEvery(AppActionsConstants.SEARCH_RESTAURANT, getRestaurants);
+    
 }
 
 export default AppSaga;
