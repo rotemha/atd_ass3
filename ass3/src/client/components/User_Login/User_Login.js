@@ -70,12 +70,18 @@ class User_Login extends React.Component {
                         
                     </div>
                 }
-
+                
                 {(!this.props.render_login) && 
                     <div>
                         <p>Username "{this.props.username}" is logged in.</p>
-                        <Button label="Profile"
-                                onClick={(_e) => this.props.profileEventHandler(!this.props.render_profile, this.props.username)}/>
+                        {!this.props.render_profile && 
+                            <Button label="Profile"
+                                    onClick={(_e) => this.props.profileEventHandler(!this.props.render_profile, this.props.username)}/>
+                        }
+                        {this.props.render_profile && 
+                            <Button label="Exit Profile"
+                                    onClick={(_e) => this.props.profileEventHandler(!this.props.render_profile, this.props.username)}/>
+                        }
                         <Button label="Logout"
                                 onClick={() => this.props.logoutEventHandler(this.props.username, this.props.password, this.props.location)}/>
                     </div>

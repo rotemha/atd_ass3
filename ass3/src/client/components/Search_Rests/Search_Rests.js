@@ -46,24 +46,30 @@ class Search_Rests extends React.Component {
 
         return (
             <div className="app-root">
-                    <RadioButton inputId="rb2" name="city" value={true} onChange={(e) => this.props.updateSearchTypeEventHandler(e)} checked={this.props.isBasic} />
-                                <label htmlFor="rb2" className="p-radiobutton-label">Basic Restaurant Search</label>
-                     <p></p>
-                     <RadioButton inputId="rb2" name="city" value={false} onChange={(e) => this.props.updateSearchTypeEventHandler(e)} checked={!this.props.isBasic} />
-                                <label htmlFor="rb2" className="p-radiobutton-label">Advanced Restaurant Search</label>
-                    <p></p>
-                    <RadioButton inputId="rb3" name="city" value={0} onChange={(e) => this.props.updateTimeEventHandler(e)} checked={this.props.time === 0} />
-                                <label htmlFor="rb3" className="p-radiobutton-label">Since last week</label>
-                    <p></p>
-                    <RadioButton inputId="rb3" name="city" value={1} onChange={(e) => this.props.updateTimeEventHandler(e)} checked={this.props.time === 1} />
-                                <label htmlFor="rb3" className="p-radiobutton-label">Since last month</label>
-                                <p></p>
-                    <RadioButton inputId="rb3" name="city" value={2} onChange={(e) => this.props.updateTimeEventHandler(e)} checked={this.props.time === 2} />
-                                <label htmlFor="rb3" className="p-radiobutton-label">Since last year</label>
-                    <p></p>
-                    <RadioButton inputId="rb3" name="city" value={3} onChange={(e) => this.props.updateTimeEventHandler(e)} checked={this.props.time === 3} />
-                                <label htmlFor="rb3" className="p-radiobutton-label">All results</label>
-                <p></p>
+                <div className="for-radios">
+                    <div>
+                        <RadioButton inputId="rb2" name="city" value={true} onChange={(e) => this.props.updateSearchTypeEventHandler(e)} checked={this.props.isBasic} />
+                                    <label htmlFor="rb2" className="p-radiobutton-label">Basic Restaurant Search</label>
+                        <p></p>
+                        <RadioButton inputId="rb2" name="city" value={false} onChange={(e) => this.props.updateSearchTypeEventHandler(e)} checked={!this.props.isBasic} />
+                                    <label htmlFor="rb2" className="p-radiobutton-label">Advanced Restaurant Search</label>
+                        <p></p>
+                    </div>
+                    <div>
+                        <RadioButton inputId="rb3" name="city" value={0} onChange={(e) => this.props.updateTimeEventHandler(e)} checked={this.props.time === 0} />
+                                    <label htmlFor="rb3" className="p-radiobutton-label">Since last week</label>
+                        <p></p>
+                        <RadioButton inputId="rb3" name="city" value={1} onChange={(e) => this.props.updateTimeEventHandler(e)} checked={this.props.time === 1} />
+                                    <label htmlFor="rb3" className="p-radiobutton-label">Since last month</label>
+                        <p></p>
+                        <RadioButton inputId="rb3" name="city" value={2} onChange={(e) => this.props.updateTimeEventHandler(e)} checked={this.props.time === 2} />
+                                    <label htmlFor="rb3" className="p-radiobutton-label">Since last year</label>
+                        <p></p>
+                        <RadioButton inputId="rb3" name="city" value={3} onChange={(e) => this.props.updateTimeEventHandler(e)} checked={this.props.time === 3} />
+                                    <label htmlFor="rb3" className="p-radiobutton-label">All results</label>
+                        <p></p>
+                    </div>
+                </div>
                 {this.props.isBasic &&
                     <div>
                         {/* <InputText value={this.props.restaurant} onChange={(e) => this.props.updateTagEventHandler(e.target.value)}/> */}

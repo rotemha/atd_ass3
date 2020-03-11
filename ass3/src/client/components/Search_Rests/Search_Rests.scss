@@ -53,3 +53,12 @@ body, html {
   color: white;
   font-size: 20pt;
 }
+
+.for-radios {
+  // width: 1252px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 24px;
+    margin-right: 24px;
+    justify-content: space-evenly;
+}
